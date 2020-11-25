@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
             velocity.y = -1f;
         }
 
-        Vector3 move = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
-        controller.Move(move * Time.deltaTime * moveSpeed);
+        Vector3 move = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+        controller.Move(move.normalized * Time.deltaTime * moveSpeed);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -42,13 +42,13 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
+        healthSlider.value = health;
+
         if (health <= 0)
         {
             Cursor.lockState = CursorLockMode.Confined;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-
-        healthSlider.value = health;
     }
 
     private void OnTriggerStay(Collider other)
