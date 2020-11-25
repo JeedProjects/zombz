@@ -9,9 +9,11 @@ public class WeaponController : MonoBehaviour
     public float knockback = 3f;
     public int damage = 34;
     public AudioClip fireSound;
+    public float fireDelay;
 
     private Animator animator;
     private AudioSource sound;
+    private float lastShot = 0;
 
     private void Start()
     {
@@ -23,22 +25,22 @@ public class WeaponController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire"))
         {
-            animator.SetTrigger("Shoot");
-            sound.PlayOneShot(fireSound);
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, range))
+            if (Time.time - lastShot >= fireDelay)
             {
-                if (hit.rigidbody != null)
+                lastShot = Time.time;
+                animator.SetTrigger("Shoot");
+                sound.PlayOneShot(fireSound);
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, range))
                 {
-                    hit.rigidbody.velocity = (ray.direction + Vector3.up/2) * knockback;
-                }
-                if (hit.collider.tag == "Enemy")
-                {
-                    hit.transform.gameObject.GetComponent<EnemyBehaviour>().health -= damage;
-                    if (hit.transform.gameObject.GetComponent<EnemyBehaviour>().health <= 0)
+                    if (hit.rigidbody != null)
                     {
-                        Destroy(hit.transform.gameObject);
+                        hit.rigidbody.velocity = (ray.direction + Vector3.up/2) * knockback;
+                    }
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        hit.transform.gameObject.GetComponent<EnemyBehaviour>().health -= damage;
                     }
                 }
             }
