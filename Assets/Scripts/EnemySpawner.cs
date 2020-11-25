@@ -4,25 +4,47 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject prefab;
-    public Transform target;
-    public int count;
-    public float delay;
-    
+    public GameObject enemyPrefab;
+    public GameObject player;
+    private int targetCount = 2;
+    public int currentCount = 0;
+    private int spawnedCount = 0;
+    public float spawnDelay = 2;
+    public int currentWave = 0;
+
     void Start()
     {
-        StartCoroutine("Spawner");
+        currentCount = targetCount;
+        foreach (Transform child in transform)
+        {
+            StartCoroutine(Spawner(child));
+        }
     }
 
-    IEnumerator Spawner()
+    void Update()
     {
-        int currentCount = 0;
-        while (currentCount < count) 
+        if (currentCount <= 0)
         {
-            GameObject enemy = Instantiate(prefab, transform.position, transform.rotation);
-            enemy.GetComponent<EnemyBehaviour>().target = target;
-            currentCount += 1;
-            yield return new WaitForSeconds(delay);
+            targetCount += targetCount;
+            currentCount = targetCount;
+            currentWave += 1;
+            spawnedCount = 0;
+            foreach (Transform child in transform)
+            {
+                StartCoroutine(Spawner(child));
+            }
+        }
+    }
+
+    IEnumerator Spawner(Transform transform)
+    {
+        while (spawnedCount < targetCount) 
+        {
+            spawnedCount += 1;
+            GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
+            enemy.GetComponent<EnemyBehaviour>().target = player;
+            enemy.GetComponent<EnemyBehaviour>().spawner = this;
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 }

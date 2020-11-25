@@ -5,9 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public Transform target;
+    public GameObject target;
     public int health;
     public int damage;
+    public EnemySpawner spawner;
 
     private NavMeshAgent agent;
     private Vector3 destination;
@@ -20,10 +21,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(destination, target.position) > 1.0f)
+        if (Vector3.Distance(destination, target.transform.position) > 1.0f)
         {
-            destination = target.position;
+            destination = target.transform.position;
             agent.destination = destination;
+        }
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            spawner.currentCount -= 1;
         }
     }
 }

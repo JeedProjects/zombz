@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e160c30886a45f45895dd41b18c9f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7532648604725156528, guid: 18b9cc1a6e54a624398f5511fd96b319, type: 3}
+  target: {fileID: 7532648604725156522, guid: 18b9cc1a6e54a624398f5511fd96b319, type: 3}
   health: 100
   damage: 14
+  spawner: {fileID: 0}
