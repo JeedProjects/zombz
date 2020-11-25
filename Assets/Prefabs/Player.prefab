@@ -132,6 +132,7 @@ MonoBehaviour:
   knockback: 3
   damage: 34
   fireSound: {fileID: 8300000, guid: bd53759aa3184c246964a0f067e99c3b, type: 3}
+  fireDelay: 0.3
 --- !u!1 &7532648604725156522
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   jumpHeight: 1
-  gravity: -9.81
+  gravity: -20
   health: 100
   hitCooldown: 2
   healthSlider: {fileID: 0}
