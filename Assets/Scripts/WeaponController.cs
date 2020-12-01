@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WeaponController : MonoBehaviour
 {
-    public Transform cameraTransform;
     public float range = 100f;
     public float knockback = 3f;
     public int damage = 34;
     public AudioClip fireSound;
     public float fireDelay;
+    public int magazineSize = 6;
+    public int remainingBullets;
+    public GameObject ammoCountText;
 
     private Animator animator;
     private AudioSource sound;
@@ -19,14 +22,17 @@ public class WeaponController : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         sound = gameObject.GetComponent<AudioSource>();
+        remainingBullets = magazineSize;
     }
 
     void Update()
     {
         if (Input.GetButtonDown("Fire"))
         {
-            if (Time.time - lastShot >= fireDelay)
+            if (Time.time - lastShot >= fireDelay && remainingBullets > 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Reload")
             {
+                remainingBullets -= 1;
+                ammoCountText.GetComponent<TextMeshProUGUI>().SetText(remainingBullets.ToString());
                 lastShot = Time.time;
                 animator.SetTrigger("Shoot");
                 sound.PlayOneShot(fireSound);
@@ -36,7 +42,7 @@ public class WeaponController : MonoBehaviour
                 {
                     if (hit.rigidbody != null)
                     {
-                        hit.rigidbody.velocity = (ray.direction + Vector3.up/2) * knockback;
+                        hit.rigidbody.velocity = (ray.direction + Vector3.up) * knockback;
                     }
                     if (hit.collider.tag == "Enemy")
                     {
@@ -44,6 +50,13 @@ public class WeaponController : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (Input.GetButtonDown("Reload"))
+        {
+            animator.SetTrigger("Reload");
+            remainingBullets = magazineSize;
+            ammoCountText.GetComponent<TextMeshProUGUI>().SetText(remainingBullets.ToString());
         }
 
         if (Input.GetButtonDown("Inspect"))
