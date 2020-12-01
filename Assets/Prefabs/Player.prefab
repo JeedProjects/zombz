@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54076971bc9fad40aa14be9bfa0adb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 150
+  sensitivity: 100
   body: {fileID: 7532648604725156528}
 --- !u!1001 &5985489337292752658
 PrefabInstance:
