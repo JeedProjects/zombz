@@ -30,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-            spawner.currentCount -= 1;
+            spawner.currentZombieCount -= 1;
         }
     }
 }

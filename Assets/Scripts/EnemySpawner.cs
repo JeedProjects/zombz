@@ -1,50 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public GameObject player;
-    private int targetCount = 2;
-    public int currentCount = 0;
-    private int spawnedCount = 0;
-    public float spawnDelay = 2;
-    public int currentWave = 0;
+    public GameObject target;
+    public GameObject zombiePrefab;
+    public int targetZombieCount = 2;
+    [HideInInspector] public int currentZombieCount;
+    public float spawnDelay = 1;
+    public float gracePeriod = 2;
+    public GameObject currentWaveText;
 
-    void Start()
-    {
-        currentCount = targetCount;
-        foreach (Transform child in transform)
-        {
-            StartCoroutine(Spawner(child));
-        }
-    }
+    private int spawnedZombieCount;
+    private int currentWave = 0;
 
     void Update()
     {
-        if (currentCount <= 0)
+        if (currentZombieCount <= 0)
         {
-            targetCount += targetCount;
-            currentCount = targetCount;
             currentWave += 1;
-            spawnedCount = 0;
-            foreach (Transform child in transform)
-            {
-                StartCoroutine(Spawner(child));
-            }
+            currentWaveText.GetComponent<TextMeshProUGUI>().SetText("Wave " + currentWave.ToString());
+            currentZombieCount = targetZombieCount;
+            spawnedZombieCount = 0;
+            StartCoroutine("Spawner");
+        }
+        if (spawnedZombieCount >= targetZombieCount)
+        {
+            targetZombieCount += targetZombieCount;
+            StopCoroutine("Spawner");
         }
     }
 
-    IEnumerator Spawner(Transform transform)
+    IEnumerator Spawner()
     {
-        while (spawnedCount < targetCount) 
+        yield return new WaitForSeconds(gracePeriod);
+        while (true)
         {
-            spawnedCount += 1;
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-            enemy.GetComponent<EnemyBehaviour>().target = player;
-            enemy.GetComponent<EnemyBehaviour>().spawner = this;
-            yield return new WaitForSeconds(spawnDelay);
+            foreach (Transform child in transform)
+            {
+                spawnedZombieCount += 1;
+                GameObject newZombie = Instantiate(zombiePrefab, child.position, child.rotation);
+                newZombie.GetComponent<EnemyBehaviour>().target = target;
+                newZombie.GetComponent<EnemyBehaviour>().spawner = this;
+                yield return new WaitForSeconds(spawnDelay);
+            }
         }
     }
 }
