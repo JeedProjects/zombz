@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public int health = 100;
     public float hitCooldown = 2f;
     public Slider healthSlider;
+    public GameObject settingsMenu;
 
     private Vector3 velocity;
     private CharacterController controller;
@@ -48,6 +49,19 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            settingsMenu.SetActive(!settingsMenu.activeSelf);
+            if (settingsMenu.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
