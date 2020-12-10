@@ -141,9 +141,11 @@ MonoBehaviour:
   target: {fileID: 0}
   zombiePrefab: {fileID: 4016935212282011131, guid: c377d529c71ced940ad1034a40da8ab2,
     type: 3}
+  targetZombieCount: 2
   currentZombieCount: 0
   spawnDelay: 2
-  gracePeriod: 2
+  gracePeriod: 5
+  currentWaveText: {fileID: 0}
 --- !u!1 &1865818425283653099
 GameObject:
   m_ObjectHideFlags: 0
