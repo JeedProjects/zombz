@@ -27,9 +27,16 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Reload"))
+        {
+            animator.SetTrigger("Reload");
+            remainingBullets = magazineSize;
+            ammoCountText.GetComponent<TextMeshProUGUI>().SetText(remainingBullets.ToString());
+        }
+        
         if (Input.GetButtonDown("Fire"))
         {
-            if (Time.time - lastShot >= fireDelay && remainingBullets > 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Reload")
+            if (Time.time - lastShot >= fireDelay && remainingBullets > 0 && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Reload" && transform.parent.transform.parent.GetComponent<PlayerController>().settingsMenu.activeSelf == false)
             {
                 remainingBullets -= 1;
                 ammoCountText.GetComponent<TextMeshProUGUI>().SetText(remainingBullets.ToString());
@@ -50,13 +57,6 @@ public class WeaponController : MonoBehaviour
                     }
                 }
             }
-        }
-
-        if (Input.GetButtonDown("Reload"))
-        {
-            animator.SetTrigger("Reload");
-            remainingBullets = magazineSize;
-            ammoCountText.GetComponent<TextMeshProUGUI>().SetText(remainingBullets.ToString());
         }
 
         if (Input.GetButtonDown("Inspect"))

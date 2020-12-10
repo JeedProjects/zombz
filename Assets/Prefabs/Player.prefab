@@ -127,12 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5fc8c0ec2fb784a90bc65f3af3c3fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 7532648605329690186}
   range: 100
   knockback: 3
   damage: 34
   fireSound: {fileID: 8300000, guid: bd53759aa3184c246964a0f067e99c3b, type: 3}
-  fireDelay: 0.3
+  fireDelay: 0.2
+  magazineSize: 6
+  remainingBullets: 0
+  ammoCountText: {fileID: 0}
 --- !u!1 &7532648604725156522
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +167,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7532648605329690186}
+  - {fileID: 4727030995315329043}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -266,6 +268,7 @@ MonoBehaviour:
   health: 100
   hitCooldown: 2
   healthSlider: {fileID: 0}
+  settingsMenu: {fileID: 0}
 --- !u!1 &7532648605329690187
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +277,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7532648605329690186}
+  - component: {fileID: 4727030995315329043}
   - component: {fileID: 7532648605329690196}
   - component: {fileID: 7532648605329690197}
   - component: {fileID: 7532648605329690199}
@@ -285,7 +288,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7532648605329690186
+--- !u!4 &4727030995315329043
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,12 +373,12 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7532648605329690186}
+    m_TransformParent: {fileID: 4727030995315329043}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 526718b7a3c0cbd4883ec8c4ab481757,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.728
+      value: 0.753
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 526718b7a3c0cbd4883ec8c4ab481757,
         type: 3}
