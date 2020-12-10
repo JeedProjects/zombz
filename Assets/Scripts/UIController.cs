@@ -10,6 +10,11 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
