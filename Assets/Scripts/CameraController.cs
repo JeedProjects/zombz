@@ -5,7 +5,7 @@ using TMPro;
 
 public class CameraController : MonoBehaviour
 {
-    public float sensitivity = 100f;
+    public float sensitivity = 150f;
     public Transform body;
 
     private float xRotation = 0f;
